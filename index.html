@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SP Test & Kịch Bản KM — DMX Core Mới</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/1.119.0/iconfont/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F7F6F3;
+    --surface: #FFFFFF;
+    --surface2: #F0EEE9;
+    --border: rgba(0,0,0,0.1);
+    --border-strong: rgba(0,0,0,0.2);
+    --text: #1A1917;
+    --text-muted: #6B6860;
+    --text-hint: #9E9C96;
+    --purple-bg: #EEEDFE; --purple-text: #3C3489; --purple-border: #AFA9EC;
+    --teal-bg: #E1F5EE; --teal-text: #085041; --teal-border: #5DCAA5;
+    --gray-bg: #F1EFE8; --gray-text: #5F5E5A; --gray-border: #B4B2A9;
+    --accent: #534AB7;
+    --r-md: 8px; --r-lg: 12px;
+  }
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  header {
+    background: var(--surface);
+    border-bottom: 0.5px solid var(--border);
+    padding: 1rem 1.25rem;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-inner { max-width: 640px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
+  .logo { width: 32px; height: 32px; background: var(--accent); border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; flex-shrink: 0; }
+  .header-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .header-sub { font-size: 11px; color: var(--text-muted); }
+
+  main { max-width: 640px; margin: 0 auto; padding: 1.25rem; }
+
+  .summary-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 1.25rem; }
+  .stat { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r-lg); padding: 1rem 1.125rem; }
+  .stat-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+  .stat-num { font-size: 28px; font-weight: 600; color: var(--text); letter-spacing: -1px; }
+  .stat-desc { font-size: 11px; color: var(--text-hint); margin-top: 2px; }
+
+  .filter-row { display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .filter-btn {
+    font-size: 11px; font-family: inherit;
+    padding: 5px 12px; border-radius: 20px;
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface); color: var(--text-muted); cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { background: var(--surface2); }
+  .filter-btn.active { background: var(--purple-bg); color: var(--purple-text); border-color: var(--purple-border); font-weight: 500; }
+
+  .search-wrap { position: relative; margin-bottom: 1rem; }
+  .search-wrap input {
+    width: 100%; padding: 9px 12px 9px 36px;
+    border: 0.5px solid var(--border-strong); border-radius: var(--r-md);
+    background: var(--surface); font-family: inherit; font-size: 13px; color: var(--text);
+    outline: none;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-hint); font-size: 16px; }
+
+  .sp-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r-lg); margin-bottom: 8px; overflow: hidden; }
+  .sp-header { display: flex; align-items: center; gap: 10px; padding: 11px 14px; cursor: pointer; user-select: none; transition: background 0.1s; }
+  .sp-header:hover { background: var(--surface2); }
+  .sp-badge { min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+  .badge-high { background: var(--purple-bg); color: var(--purple-text); }
+  .badge-mid { background: var(--teal-bg); color: var(--teal-text); }
+  .badge-low { background: var(--gray-bg); color: var(--gray-text); }
+  .sp-info { flex: 1; min-width: 0; }
+  .sp-name { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sp-cat { font-size: 11px; color: var(--text-hint); }
+  .chevron { color: var(--text-hint); font-size: 16px; transition: transform 0.2s; flex-shrink: 0; }
+  .chevron.open { transform: rotate(180deg); }
+
+  .sp-body { border-top: 0.5px solid var(--border); padding: 10px 14px 12px; display: none; }
+  .sp-body.open { display: block; }
+  .sp-url-row { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+  .sp-url { font-size: 11px; color: var(--text-hint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+  .url-copy { background: none; border: none; cursor: pointer; color: var(--text-hint); font-size: 14px; flex-shrink: 0; }
+  .url-copy:hover { color: var(--accent); }
+  .kb-list { display: flex; flex-direction: column; gap: 1px; }
+  .kb-item { display: flex; align-items: flex-start; gap: 8px; padding: 5px 0; border-bottom: 0.5px solid var(--border); }
+  .kb-item:last-child { border-bottom: none; }
+  .kb-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .kb-text { font-size: 12px; color: var(--text); line-height: 1.5; }
+
+  .empty { text-align: center; padding: 2rem 1rem; color: var(--text-muted); font-size: 13px; }
+
+  .footer { text-align: center; font-size: 11px; color: var(--text-hint); padding: 2rem 1rem 3rem; }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1A1917; --surface: #242320; --surface2: #2E2C28;
+      --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.14);
+      --text: #F0EEE9; --text-muted: #9E9C96; --text-hint: #6B6860;
+      --purple-bg: #26215C; --purple-text: #CECBF6; --purple-border: #534AB7;
+      --teal-bg: #04342C; --teal-text: #9FE1CB; --teal-border: #0F6E56;
+      --gray-bg: #2C2C2A; --gray-text: #D3D1C7; --gray-border: #5F5E5A;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo"><i class="ti ti-tag" aria-hidden="true"></i></div>
+    <div>
+      <div class="header-title">SP Test & Kịch bản KM</div>
+      <div class="header-sub">DMX Core Mới — Staging</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="summary-row">
+    <div class="stat">
+      <div class="stat-label">SP cần đặt test</div>
+      <div class="stat-num" id="count-sp">25</div>
+      <div class="stat-desc">sản phẩm staging</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Kịch bản nghiệm thu</div>
+      <div class="stat-num">42</div>
+      <div class="stat-desc">PE đã đáp ứng</div>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <i class="ti ti-search" aria-hidden="true"></i>
+    <input type="text" id="search" placeholder="Tìm SP hoặc kịch bản..." oninput="render()">
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="setFilter('all',this)">Tất cả</button>
+    <button class="filter-btn" onclick="setFilter('many',this)">≥ 3 kịch bản</button>
+    <button class="filter-btn" onclick="setFilter('two',this)">2 kịch bản</button>
+    <button class="filter-btn" onclick="setFilter('one',this)">1 kịch bản</button>
+  </div>
+
+  <div id="sp-list"></div>
+  <div class="footer">Dữ liệu từ Họp KM Partner 24/04/2026 · DMX Core Migration</div>
+</main>
+
+<script>
+const DATA = [
+  { slug:'karofi-kaq-u06', name:'Máy lọc nước Karofi KAQ-U06', cat:'Gia dụng', url:'may-loc-nuoc/may-loc-nuoc-ro-am-tu-karofi-kaq-u06-10-loi', kbs:['KM chọn - 1 trong nhiều quà','KM giảm giá đích danh (giảm tiền / giảm %)','KM Text','Kịch bản xả kho','KM chọn - giảm tiền hoặc quà','KM tặng quà (1 hoặc nhiều quà ngẫu nhiên)'] },
+  { slug:'kangaroo-kg42af1', name:'Nồi chiên Kangaroo KG42AF1', cat:'Gia dụng', url:'gia-dung/noi-chien-khong-dau-kangaroo-kg42af1', kbs:['Kịch bản combo (khác NH)','Kịch bản combo (cùng NH)','Online only giá rẻ ràng suất Flashsale','KM combo cùng loại','KM Combo nhà mới'] },
+  { slug:'ipad-air-m4', name:'iPad Air M4', cat:'Tablet', url:'may-tinh-bang/ipad-air-m4', kbs:['KM theo khu vực (tỉnh)','Loại tùy chọn hiển thị giá gạch','KM tặng quà ngẫu nhiên - hiển thị tên nhóm'] },
+  { slug:'samsung-s26-plus', name:'Samsung Galaxy S26+', cat:'Điện thoại', url:'dien-thoai/samsung-galaxy-s26-plus-12gb-512gb', kbs:['Mua kèm phụ kiện','KM mua kèm đích danh','KM ẩn đích danh'] },
+  { slug:'asus-vivobook-e1504fa', name:'Asus Vivobook E1504FA', cat:'Laptop', url:'laptop/asus-vivobook-go-e1504fa-r5-7520u-bq1160w', kbs:['KM tổng tiền - quà tặng','KM Ưu đãi học sinh - sinh viên'] },
+  { slug:'comfee-cfs-10vdm', name:'Máy lạnh Comfee 1HP CFS-10VDM', cat:'Máy lạnh', url:'may-lanh/comfee-inverter-1-hp-cfs-10vdm', kbs:['KM tổng tiền - giảm giá (SL 2)','KM theo hình thức giao'] },
+  { slug:'sanaky-snk-tv2hk40', name:'Máy lọc nước Sanaky SNK-TV2HK40', cat:'Gia dụng', url:'may-loc-nuoc/may-loc-nuoc-ro-nong-nguoi-hydrogen-sanaky-snk-tv2hk40-11-loi', kbs:['Mua 2 tính 1','Online tiết kiệm tự động'] },
+  { slug:'bear-rc-4h40a', name:'Nồi cơm Bear RC-4H40A 1.5L', cat:'Gia dụng', url:'noi-com/noi-com-dien-tu-bear-1-5-lit-rc-4h40a', kbs:['KM tặng quà hết quà nợ','KM tặng quà hết quà hoàn tiền'] },
+  { slug:'tefal-rk5352y0', name:'Nồi cơm Tefal RK5352Y0 0.72L', cat:'Gia dụng', url:'gia-dung/noi-com-dien-tu-tefal-072-lit-rk5352y0', kbs:['Kịch bản combo (khác NH)','Online only giá sốc (OLTK cho SP OLOL)'] },
+  { slug:'daikiosan-dq103', name:'Quạt đứng Daikiosan DQ103', cat:'Gia dụng', url:'quat/quat-dung-daikiosan-7-canh-dq103-80w', kbs:['Online only giá sốc (OLTK cho SP OLOL)','Online Only'] },
+  { slug:'dv-ve-sinh-may-hut-mui', name:'DV vệ sinh máy hút mùi', cat:'Dịch vụ', url:'tho-dien-may-xanh/dich-vu-ve-sinh-may-hut-mui', kbs:['Dịch vụ vệ sinh máy lạnh'] },
+  { slug:'mieng-dan-lung-iphone13', name:'Miếng dán lưng iPhone 13', cat:'Phụ kiện', url:'mieng-dan-man-hinh/mieng-dan-lung-iphone-13', kbs:['Chỉ bán tại siêu thị - KM giảm giá'] },
+  { slug:'kangaroo-kg50f88', name:'Quạt điều hòa Kangaroo KG50F88', cat:'Gia dụng', url:'quat-dieu-hoa/kangaroo-kg50f88', kbs:['Online giá rẻ tự động'] },
+  { slug:'panasonic-xu24bkh8', name:'Máy lạnh Panasonic 2.5HP XU24BKH-8', cat:'Máy lạnh', url:'may-lanh-test/panasonic-inverter-2-5-hp-cu-cs-xu24bkh-8', kbs:['Online giá rẻ ràng suất Flashsale'] },
+  { slug:'sanaky-snk-tv3hk88', name:'Máy lọc nước Sanaky SNK-TV3HK88', cat:'Gia dụng', url:'may-loc-nuoc/may-loc-nuoc-ro-nong-nguoi-lanh-hydrogen-sanaky-snk-tv3hk88-11-loi', kbs:['Online tiết kiệm ràng suất Flashsale'] },
+  { slug:'philips-dst8041', name:'Bàn ủi hơi nước Philips DST8041', cat:'Gia dụng', url:'gia-dung/ban-ui-hoi-nuoc-philips-dst8041-80', kbs:['Online only giá rẻ tự động'] },
+  { slug:'panasonic-xu9bkh8', name:'Máy lạnh Panasonic 1HP XU9BKH-8', cat:'Máy lạnh', url:'may-lanh-test/panasonic-inverter-1-hp-cu-cs-xu9bkh-8', kbs:['KB giá rẻ ràng suất KM ẩn (CTKM ẩn 1đ)'] },
+  { slug:'dahua-dh-h3ae', name:'Camera IP 360° Dahua DH-H3AE', cat:'Camera', url:'camera-giam-sat/camera-ip-360-do-3mp-dahua-dh-h3ae', kbs:['KM theo hình thức giao - Camera'] },
+  { slug:'panasonic-pu12ckh8d', name:'Máy lạnh Panasonic 1.5HP PU12CKH-8D', cat:'Máy lạnh', url:'may-lanh/panasonic-inverter-15-hp-u-cs-pu12ckh-8d', kbs:['Đa giá BIG CE (BH Tận Tâm)'] },
+  { slug:'locklock-lhc4267pik', name:'Bình giữ nhiệt Lock&Lock LHC4267', cat:'Gia dụng', url:'binh-ly-giu-nhiet/binh-giu-nhiet-inox-490ml-belt-bottle-lock-lock-lhc4267pik', kbs:['DropShip'] },
+  { slug:'finder-fd10041621', name:'Máy khoan pin Finder FD10041621', cat:'Gia dụng', url:'may-khoan/may-khoan-pin-finder-fd10041621-16-8v', kbs:['Crossborder'] },
+  { slug:'vieon-vip-12thang', name:'Phần mềm Vieon VIP 12 tháng', cat:'Phần mềm', url:'phan-mem/vieon-vip-12-thang-chinh-hang', kbs:['Phần mềm - khai báo KM giảm giá'] },
+  { slug:'bosch-sms4evi04e', name:'Máy rửa chén Bosch SMS4EVI04E', cat:'Gia dụng', url:'may-rua-chen/may-rua-chen-doc-lap-bosch-sms4evi04e', kbs:['Online Ontop'] },
+  { slug:'iphone-15', name:'iPhone 15', cat:'Điện thoại', url:'dien-thoai/iphone-15', kbs:['Shop chiến'] },
+  { slug:'iphone-17-512gb', name:'iPhone 17 512GB', cat:'Điện thoại', url:'dien-thoai/iphone-17-512gb', kbs:['KM loại trừ gói trả góp'] },
+];
+
+const DOTS = ['#7F77DD','#1D9E75','#D85A30','#D4537E','#378ADD','#639922','#BA7517','#E24B4A'];
+let activeFilter = 'all';
+let openSlugs = new Set();
+
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function badgeClass(n) {
+  if (n >= 3) return 'badge-high';
+  if (n === 2) return 'badge-mid';
+  return 'badge-low';
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const list = document.getElementById('sp-list');
+
+  let filtered = DATA.filter(sp => {
+    const matchFilter = activeFilter === 'all' || 
+      (activeFilter === 'many' && sp.kbs.length >= 3) ||
+      (activeFilter === 'two' && sp.kbs.length === 2) ||
+      (activeFilter === 'one' && sp.kbs.length === 1);
+    const matchQ = !q || sp.name.toLowerCase().includes(q) || sp.kbs.some(k => k.toLowerCase().includes(q));
+    return matchFilter && matchQ;
+  });
+
+  document.getElementById('count-sp').textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="empty"><i class="ti ti-search-off" style="font-size:24px;display:block;margin-bottom:8px"></i>Không tìm thấy SP phù hợp</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(sp => {
+    const isOpen = openSlugs.has(sp.slug);
+    return `<div class="sp-card">
+      <div class="sp-header" onclick="toggle('${sp.slug}')">
+        <div class="sp-badge ${badgeClass(sp.kbs.length)}">${sp.kbs.length}</div>
+        <div class="sp-info">
+          <div class="sp-name">${sp.name}</div>
+          <div class="sp-cat">${sp.cat} · ${sp.kbs.length} kịch bản</div>
+        </div>
+        <i class="ti ti-chevron-down chevron ${isOpen ? 'open' : ''}"></i>
+      </div>
+      <div class="sp-body ${isOpen ? 'open' : ''}">
+        <div class="sp-url-row">
+          <div class="sp-url">staging.dienmayxanh.com/${sp.url}</div>
+          <button class="url-copy" title="Sao chép link" onclick="copyUrl(event,'https://staging.dienmayxanh.com/${sp.url}')"><i class="ti ti-copy"></i></button>
+        </div>
+        <div class="kb-list">
+          ${sp.kbs.map((kb,i) => `<div class="kb-item"><div class="kb-dot" style="background:${DOTS[i%DOTS.length]}"></div><div class="kb-text">${kb}</div></div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggle(slug) {
+  if (openSlugs.has(slug)) openSlugs.delete(slug);
+  else openSlugs.add(slug);
+  render();
+}
+
+function copyUrl(e, url) {
+  e.stopPropagation();
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = e.currentTarget;
+    btn.innerHTML = '<i class="ti ti-check"></i>';
+    setTimeout(() => { btn.innerHTML = '<i class="ti ti-copy"></i>'; }, 1500);
+  });
+}
+
+render();
+</script>
+</body>
+</html>
