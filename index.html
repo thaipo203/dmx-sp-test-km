@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SP Test & Kịch Bản KM — DMX Core Mới</title>
+<title>SP Test & Kịch Bản KM — TGDĐ Core Mới</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/1.119.0/iconfont/tabler-icons.min.css">
@@ -13,16 +13,18 @@
   --bg:#F7F6F3;--surface:#fff;--surface2:#F0EEE9;
   --border:rgba(0,0,0,.08);--border-s:rgba(0,0,0,.15);
   --text:#1A1917;--muted:#6B6860;--hint:#9E9C96;
-  --accent:#534AB7;
-  --r-md:8px;--r-lg:12px;
+  --accent:#534AB7;--r-md:8px;--r-lg:12px;
 }
 body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6}
 header{background:var(--surface);border-bottom:.5px solid var(--border);padding:1rem 1.25rem;position:sticky;top:0;z-index:100}
-.header-inner{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:10px}
+.hi{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:10px}
 .logo{width:32px;height:32px;background:var(--accent);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0}
-.header-title{font-size:14px;font-weight:600}
-.header-sub{font-size:11px;color:var(--muted)}
+.ht{font-size:14px;font-weight:600}
+.hs{font-size:11px;color:var(--muted)}
 main{max-width:640px;margin:0 auto;padding:1.25rem}
+.tabs{display:flex;gap:4px;margin-bottom:1.25rem;background:var(--surface2);border-radius:var(--r-md);padding:4px}
+.tab{flex:1;padding:6px;border:none;border-radius:6px;background:none;font-family:inherit;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s}
+.tab.on{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:1.25rem}
 .stat{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r-lg);padding:1rem 1.125rem}
 .stat-lbl{font-size:11px;color:var(--muted);margin-bottom:4px}
@@ -43,147 +45,194 @@ main{max-width:640px;margin:0 auto;padding:1.25rem}
 .b-hi{background:#EEEDFE;color:#3C3489}
 .b-mid{background:#E1F5EE;color:#085041}
 .b-lo{background:#F1EFE8;color:#5F5E5A}
+.b-warn{background:#FAEEDA;color:#633806}
 .ci{flex:1;min-width:0}
 .cn{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cc{font-size:11px;color:var(--hint)}
 .chv{color:var(--hint);font-size:16px;transition:transform .2s;flex-shrink:0}
 .chv.open{transform:rotate(180deg)}
+.pv-tag{font-size:10px;padding:2px 7px;border-radius:10px;background:var(--surface2);color:var(--muted);white-space:nowrap;flex-shrink:0}
 .cb{border-top:.5px solid var(--border);padding:10px 14px 12px;display:none}
 .cb.open{display:block}
 .url-row{display:flex;align-items:center;gap:6px;margin-bottom:10px}
 .url-txt{font-size:11px;color:var(--hint);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.icon-btn{background:none;border:none;cursor:pointer;color:var(--hint);font-size:14px;flex-shrink:0;padding:2px;text-decoration:none;display:inline-flex}
-.icon-btn:hover{color:var(--accent)}
-.kb-list{display:flex;flex-direction:column}
-.kbi{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:.5px solid var(--border)}
-.kbi:last-child{border-bottom:none}
-.dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0}
-.kb-right{flex:1;min-width:0}
-.kb-name{font-size:12px;color:var(--text);line-height:1.5}
-.km-row{display:flex;align-items:center;gap:6px;margin-top:2px}
+.ibt{background:none;border:none;cursor:pointer;color:var(--hint);font-size:14px;flex-shrink:0;padding:2px;text-decoration:none;display:inline-flex}
+.ibt:hover{color:var(--accent)}
 .km-id{font-size:11px;color:#534AB7;font-weight:500}
 .km-link{font-size:11px;color:var(--muted);display:inline-flex;align-items:center;gap:2px;text-decoration:none}
 .km-link:hover{color:var(--accent)}
 .km-none{font-size:11px;color:var(--hint);font-style:italic}
+.erp{font-size:11px;color:var(--hint)}
+.dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.kb-right{flex:1;min-width:0}
+.kb-name{font-size:12px;color:var(--text);line-height:1.5}
+.km-row{display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap}
+.kbi{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:.5px solid var(--border)}
+.kbi:last-child{border-bottom:none}
 .empty{text-align:center;padding:2rem;color:var(--muted);font-size:13px}
 footer{text-align:center;font-size:11px;color:var(--hint);padding:2rem 1rem 3rem}
 @media(prefers-color-scheme:dark){
-  :root{
-    --bg:#1A1917;--surface:#242320;--surface2:#2E2C28;
-    --border:rgba(255,255,255,.08);--border-s:rgba(255,255,255,.14);
-    --text:#F0EEE9;--muted:#9E9C96;--hint:#6B6860;
-  }
+  :root{--bg:#1A1917;--surface:#242320;--surface2:#2E2C28;--border:rgba(255,255,255,.08);--border-s:rgba(255,255,255,.14);--text:#F0EEE9;--muted:#9E9C96;--hint:#6B6860}
   .b-hi{background:#26215C;color:#CECBF6}
   .b-mid{background:#04342C;color:#9FE1CB}
   .b-lo{background:#2C2C2A;color:#D3D1C7}
+  .b-warn{background:#412402;color:#FAC775}
   .fb.on{background:#26215C;color:#CECBF6;border-color:#534AB7}
   .km-id{color:#AFA9EC}
-  .km-link:hover{color:#AFA9EC}
 }
 </style>
 </head>
 <body>
 <header>
-  <div class="header-inner">
+  <div class="hi">
     <div class="logo"><i class="ti ti-tag" aria-hidden="true"></i></div>
     <div>
-      <div class="header-title">SP Test & Kịch bản KM</div>
-      <div class="header-sub">DMX Core Mới — Staging</div>
+      <div class="ht">SP Test & Kịch bản KM</div>
+      <div class="hs">TGDĐ Core Mới — Staging</div>
     </div>
   </div>
 </header>
 <main>
+  <div class="tabs">
+    <button class="tab on" onclick="setSite('tgdd',this)">TGDĐ</button>
+    <button class="tab" onclick="setSite('dmx',this)">ĐMX</button>
+  </div>
   <div class="stats">
     <div class="stat"><div class="stat-lbl">SP cần đặt test</div><div class="stat-num" id="cnt-sp">—</div><div class="stat-desc">sản phẩm staging</div></div>
-    <div class="stat"><div class="stat-lbl">Kịch bản nghiệm thu</div><div class="stat-num" id="cnt-kb">—</div><div class="stat-desc">PE đã đáp ứng</div></div>
+    <div class="stat"><div class="stat-lbl">Kịch bản nghiệm thu</div><div class="stat-num" id="cnt-kb">—</div><div class="stat-desc">có tick Data</div></div>
   </div>
-  <div class="search-w">
-    <i class="ti ti-search" aria-hidden="true"></i>
-    <input id="q" type="text" placeholder="Tìm SP hoặc kịch bản..." oninput="render()">
-  </div>
+  <div class="search-w"><i class="ti ti-search" aria-hidden="true"></i><input id="q" type="text" placeholder="Tìm SP hoặc kịch bản..." oninput="render()"></div>
   <div class="filters">
     <button class="fb on" onclick="setF('all',this)">Tất cả</button>
-    <button class="fb" onclick="setF('many',this)">≥ 3 kịch bản</button>
-    <button class="fb" onclick="setF('two',this)">2 kịch bản</button>
-    <button class="fb" onclick="setF('one',this)">1 kịch bản</button>
+    <button class="fb" onclick="setF('kb',this)">KBĐB</button>
+    <button class="fb" onclick="setF('km',this)">Khuyến mãi</button>
     <button class="fb" onclick="setF('noid',this)">Chưa có ID KM</button>
   </div>
   <div id="list"></div>
 </main>
-<footer>Dữ liệu từ Họp KM Partner 24/04/2026 · DMX Core Migration</footer>
+<footer id="footer-note">Dữ liệu từ file TGDĐ Core Migration · Chỉ lấy kịch bản có tick Data</footer>
 
 <script>
-const PE_URL='https://promotionengine.mwgroup.vn/promotion/view/';
+const PE='https://promotionengine.mwgroup.vn/promotion/view/';
 const DOTS=['#7F77DD','#1D9E75','#D85A30','#D4537E','#378ADD','#639922','#BA7517','#E24B4A'];
-const DATA=[
-  {name:'Camera IP 360° Dahua DH-H3AE',cat:'Camera',url:'camera-giam-sat/camera-ip-360-do-3mp-dahua-dh-h3ae',kbs:[
-    {n:'KM chọn - 1 trong nhiều quà',id:'4500006'},
-    {n:'KM giảm giá đích danh (giảm tiền / giảm %)',id:'4555617'},
-    {n:'KM Text',id:'4555616'},
-    {n:'Kịch bản xả kho',id:'4555920'},
-    {n:'KM chọn - giảm tiền hoặc quà',id:'4555637'},
-    {n:'KM tặng quà (1 hoặc nhiều quà ngẫu nhiên)',id:'4500006'},
-    {n:'KM theo hình thức giao - Camera',id:'4555634'},
-  ]},
-  {name:'Nồi chiên Kangaroo KG42AF1',cat:'Gia dụng',url:'gia-dung/noi-chien-khong-dau-kangaroo-kg42af1',kbs:[
-    {n:'Kịch bản combo (khác NH)',id:'4499918'},
-    {n:'Kịch bản combo (cùng NH)',id:'4499917'},
-    {n:'Online only giá rẻ ràng suất Flashsale',id:'4553229'},
-    {n:'KM combo cùng loại',id:'4499917'},
-    {n:'KM Combo nhà mới',id:null},
-  ]},
-  {name:'iPad Air M4',cat:'Tablet',url:'may-tinh-bang/ipad-air-m4',kbs:[
-    {n:'KM theo khu vực (tỉnh)',id:'4500015'},
-    {n:'Loại tùy chọn hiển thị giá gạch',id:'4500014'},
-    {n:'KM tặng quà ngẫu nhiên - hiển thị tên nhóm',id:'4555923'},
-  ]},
-  {name:'Samsung Galaxy S26+',cat:'Điện thoại',url:'dien-thoai/samsung-galaxy-s26-plus-12gb-512gb',kbs:[
-    {n:'Mua kèm phụ kiện',id:'4499916'},
-    {n:'KM mua kèm đích danh',id:'4499916'},
-    {n:'KM ẩn đích danh',id:'4555619'},
-  ]},
-  {name:'Asus Vivobook E1504FA',cat:'Laptop',url:'laptop/asus-vivobook-go-e1504fa-r5-7520u-bq1160w',kbs:[
-    {n:'KM tổng tiền - quà tặng',id:'4500010'},
-    {n:'KM Ưu đãi học sinh - sinh viên',id:null},
-    {n:'KM mua nhiều giảm nhiều',id:null},
-  ]},
-  {name:'Máy lạnh Comfee 1HP CFS-10VDM',cat:'Máy lạnh',url:'may-lanh/comfee-inverter-1-hp-cfs-10vdm',kbs:[
-    {n:'KM tổng tiền - giảm giá (SL 2)',id:'4500009'},
-    {n:'KM theo hình thức giao',id:'4555639'},
-  ]},
-  {name:'Máy lọc nước Sanaky SNK-TV2HK40',cat:'Gia dụng',url:'may-loc-nuoc/may-loc-nuoc-ro-nong-nguoi-hydrogen-sanaky-snk-tv2hk40-11-loi',kbs:[
-    {n:'Mua 2 tính 1',id:'4555576'},
-    {n:'Online tiết kiệm tự động',id:'4553230'},
-  ]},
-  {name:'Nồi cơm Bear RC-4H40A',cat:'Gia dụng',url:'noi-com/noi-com-dien-tu-bear-1-5-lit-rc-4h40a',kbs:[
-    {n:'KM tặng quà hết quà nợ',id:'4500013'},
-    {n:'KM tặng quà hết quà hoàn tiền',id:'4500012'},
-  ]},
-  {name:'Nồi cơm Tefal RK5352Y0',cat:'Gia dụng',url:'gia-dung/noi-com-dien-tu-tefal-072-lit-rk5352y0',kbs:[
-    {n:'Kịch bản combo (khác NH)',id:'4499918'},
-    {n:'Online only giá sốc (OLTK cho SP OLOL)',id:'4553230'},
-  ]},
-  {name:'Quạt Daikiosan DQ103',cat:'Gia dụng',url:'quat/quat-dung-daikiosan-7-canh-dq103-80w',kbs:[
-    {n:'Online only giá sốc (OLTK cho SP OLOL)',id:'4553230'},
-    {n:'Online Only',id:'4555633'},
-  ]},
-  {name:'DV vệ sinh máy hút mùi',cat:'Dịch vụ',url:'tho-dien-may-xanh/dich-vu-ve-sinh-may-hut-mui',kbs:[{n:'Dịch vụ vệ sinh máy lạnh',id:'4499923'}]},
-  {name:'Miếng dán lưng iPhone 13',cat:'Phụ kiện',url:'mieng-dan-man-hinh/mieng-dan-lung-iphone-13',kbs:[{n:'Chỉ bán tại siêu thị - KM giảm giá',id:'4499922'}]},
-  {name:'Quạt điều hòa Kangaroo KG50F88',cat:'Gia dụng',url:'quat-dieu-hoa/kangaroo-kg50f88',kbs:[{n:'Online giá rẻ tự động',id:'4553229'}]},
-  {name:'Máy lạnh Panasonic 2.5HP XU24BKH-8',cat:'Máy lạnh',url:'may-lanh-test/panasonic-inverter-2-5-hp-cu-cs-xu24bkh-8',kbs:[{n:'Online giá rẻ ràng suất Flashsale',id:'4553229'}]},
-  {name:'Máy lọc nước Sanaky SNK-TV3HK88',cat:'Gia dụng',url:'may-loc-nuoc/may-loc-nuoc-ro-nong-nguoi-lanh-hydrogen-sanaky-snk-tv3hk88-11-loi',kbs:[{n:'Online tiết kiệm ràng suất Flashsale',id:'4553230'}]},
-  {name:'Bàn ủi Philips DST8041',cat:'Gia dụng',url:'gia-dung/ban-ui-hoi-nuoc-philips-dst8041-80',kbs:[{n:'Online only giá rẻ tự động',id:'4553229'}]},
-  {name:'Máy lạnh Panasonic 1HP XU9BKH-8',cat:'Máy lạnh',url:'may-lanh-test/panasonic-inverter-1-hp-cu-cs-xu9bkh-8',kbs:[{n:'KB giá rẻ ràng suất KM ẩn (CTKM ẩn 1đ)',id:'4555632'}]},
-  {name:'Máy lạnh Panasonic 1.5HP PU12CKH-8D',cat:'Máy lạnh',url:'may-lanh/panasonic-inverter-15-hp-u-cs-pu12ckh-8d',kbs:[{n:'Đa giá BIG CE (BH Tận Tâm)',id:null}]},
-  {name:'Bình giữ nhiệt Lock&Lock LHC4267',cat:'Gia dụng',url:'binh-ly-giu-nhiet/binh-giu-nhiet-inox-490ml-belt-bottle-lock-lock-lhc4267pik',kbs:[{n:'DropShip',id:'4555635'}]},
-  {name:'Máy khoan pin Finder FD10041621',cat:'Gia dụng',url:'may-khoan/may-khoan-pin-finder-fd10041621-16-8v',kbs:[{n:'Crossborder',id:'4555636'}]},
-  {name:'Phần mềm Vieon VIP 12 tháng',cat:'Phần mềm',url:'phan-mem/vieon-vip-12-thang-chinh-hang',kbs:[{n:'Phần mềm - khai báo KM giảm giá',id:'4555641'}]},
-  {name:'Máy rửa chén Bosch SMS4EVI04E',cat:'Gia dụng',url:'may-rua-chen/may-rua-chen-doc-lap-bosch-sms4evi04e',kbs:[{n:'Online Ontop',id:'4555638'}]},
-  {name:'iPhone 15',cat:'Điện thoại',url:'dien-thoai/iphone-15',kbs:[{n:'Shop chiến (Khai báo giá chiến)',id:null}]},
-  {name:'iPhone 17 512GB',cat:'Điện thoại',url:'dien-thoai/iphone-17-512gb',kbs:[{n:'KM loại trừ gói trả góp',id:'4555922'}]},
+const BASE_TGDD='https://staging.thegioididong.com/';
+const BASE_DMX='https://staging.dienmayxanh.com/';
+
+// Group by SP: each SP has multiple KB rows
+// TGDD data - grouped by SP
+const TGDD_RAW=[
+  {kb:'Online giá rẻ tự động - ràng suất Flashsale',pv:'KBĐB',url:'tai-nghe/tai-nghe-chup-tai-logitech-h111',name:'Tai nghe Logitech H111',cat:'Tai nghe',id:'4558103',erp:'0160015000920'},
+  {kb:'Online tiết kiệm tự động - ràng suất Flashsale',pv:'KBĐB',url:'sac-dtdd/sac-du-phong-5000mah-magnetic-type-c-pd-22-5w-xiaomi-ultrathin-mdy-20-eb',name:'Sạc Xiaomi Ultrathin MDY-20-EB',cat:'Sạc',id:'4558104',erp:'0160012000786'},
+  {kb:'Online only giá rẻ tự động - ràng suất Flashsale',pv:'KBĐB',url:'loa-test/loa-bluetooth-rezo-play',name:'Loa Bluetooth Rezo Play',cat:'Loa',id:'4558107',erp:'0161031000341'},
+  {kb:'Online only giá sốc (OLTK nhưng mà SP OLOL)',pv:'KBĐB',url:'tai-nghe-test/tai-nghe-bluetooth-true-wireless-bowers-wilkins-pi5-s2',name:'Tai nghe Bowers & Wilkins PI5 S2',cat:'Tai nghe',id:'4558109',erp:'0164540000241'},
+  {kb:'Mua kèm phụ kiện',pv:'KBĐB',url:'camera-giam-sat/camera-ip-ngoai-troi-360-do-3mp-imou-cruiser-2c-s7cp-3m0we',name:'Camera IMOU Cruiser 2C S7CP-3M0WE',cat:'Camera',id:'4558120',erp:'0164219000086'},
+  {kb:'Online Only',pv:'KBĐB',url:'laptop/hp-elitebook-8-g1a-14-r5-ai-pro-340-c0ce3pt',name:'HP EliteBook 8 G1A',cat:'Laptop',id:'4558121',erp:'0220042003878'},
+  {kb:'Ưu đãi qua cổng thanh toán',pv:'KBĐB',url:'laptop/acer-aspire-lite-15-al15-48p-r86q-r7-5825u-nx-ds1sv-002',name:'Acer Aspire Lite 15 AL15-48P',cat:'Laptop',id:null,erp:'0220042003918'},
+  {kb:'KM theo hình thức giao - Camera',pv:'KBĐB',url:'camera-giam-sat/camera-ip-360-do-5mp-ezviz-c6n-g1',name:'Camera EZVIZ C6N G1 5MP',cat:'Camera',id:'4558123',erp:'0166479000032'},
+  {kb:'DropShip',pv:'KBĐB',url:'sac-dtdd/pin-sac-du-phong-khong-day-polymer-10000mah-type-c-30w-aukey-pb-ms02-hong',name:'Pin Aukey PB-MS02 10000mAh',cat:'Sạc',id:null,erp:'0160012000676'},
+  {kb:'Crossborder',pv:'KBĐB',url:'',name:'(Chưa có SP - chưa set mã)',cat:'—',id:null,erp:'0000000000000'},
+  {kb:'Ưu đãi học sinh - sinh viên',pv:'KBĐB',url:'laptop/asus-vivobook-go-e1504fa-r5-7520u-bq1160w',name:'Asus Vivobook Go E1504FA',cat:'Laptop',id:null,erp:'0164219000086'},
+  {kb:'Online Ontop',pv:'KBĐB',url:'dtdd/xiaomi-17t-5g-12gb-256gb',name:'Xiaomi 17T 5G 12GB/256GB',cat:'Điện thoại',id:'4558105',erp:'0131491005256'},
+  {kb:'Shop chiến',pv:'KBĐB',url:'laptop/hp-15-fc0023au-r5-7520u-d0bh1pa',name:'HP 15 FC0023AU',cat:'Laptop',id:'4558095',erp:'0220042003571'},
+  {kb:'KM chọn - giảm tiền hoặc quà',pv:'KM',url:'laptop/hp-15-fc0023au-r5-7520u-d0bh1pa',name:'HP 15 FC0023AU',cat:'Laptop',id:'4558094',erp:'0220042003571'},
+  {kb:'KM chọn - 1 trong nhiều quà',pv:'KM',url:'laptop/hp-15-fc0023au-r5-7520u-d0bh1pa',name:'HP 15 FC0023AU',cat:'Laptop',id:'4558093',erp:'0220042003571'},
+  {kb:'KM giảm giá đích danh (giảm tiền - giảm %)',pv:'KM',url:'camera-giam-sat/camera-ip-ngoai-troi-360-5mp-imou-4g-nlmt-b7ed-5m0tea-eufsp14',name:'Camera IMOU 4G NLMT B7ED 5MP',cat:'Camera',id:'4558091',erp:'0164219000110'},
+  {kb:'KM tặng quà (1 hoặc nhiều quà - ngẫu nhiên)',pv:'KM',url:'dong-ho-thong-minh/kidcare-s6-day-silicone-hong',name:'Đồng hồ KidCare S6',cat:'Đồng hồ',id:'4558090',erp:'0232391002425'},
+  {kb:'KM mua kèm đích danh',pv:'KM',url:'camera-giam-sat/camera-ip-ngoai-troi-360-do-3mp-imou-cruiser-2c-s7cp-3m0we',name:'Camera IMOU Cruiser 2C S7CP-3M0WE',cat:'Camera',id:'4558089',erp:'0164219000086'},
+  {kb:'KM loại trừ gói trả góp',pv:'KM',url:'may-tinh-bang/oppo-pad-5-8gb-256gb',name:'OPPO Pad 5 8GB/256GB',cat:'Tablet',id:'4558007',erp:'2440931001204'},
+  {kb:'KM theo hình thức giao',pv:'KM',url:'camera-giam-sat/camera-ip-ngoai-troi-360-5mp-imou-4g-nlmt-b7ed-5m0tea-eufsp14',name:'Camera IMOU 4G NLMT B7ED 5MP',cat:'Camera',id:'4557964',erp:'0164219000110'},
+  {kb:'Phiếu mua hàng 1 code đại diện',pv:'KM',url:'',name:'(Không cần SP test)',cat:'—',id:null,erp:'0000000000000'},
+  {kb:'KM tặng quà hết quà hoàn tiền',pv:'KM',url:'dong-ho-thong-minh/xiaomi-band-9',name:'Xiaomi Band 9',cat:'Đồng hồ',id:null,erp:'ONLINE.2026'},
+  {kb:'KM theo khu vực (tỉnh)',pv:'KM',url:'laptop/asus-vivobook-go-e1504fa-r5-7520u-bq1160w',name:'Asus Vivobook Go E1504FA',cat:'Laptop',id:'4557963',erp:'0220042003466'},
+  {kb:'KM hết quà nợ khuyến mãi',pv:'KM',url:'dtdd/samsung-galaxy-a37-6gb-128gb',name:'Samsung Galaxy A37 6GB/128GB',cat:'Điện thoại',id:'4557962',erp:'0131491005164'},
 ];
 
-let filter='all',openSet=new Set();
+// Group by SP URL
+function groupBySP(raw, base) {
+  const map={};
+  raw.forEach(r=>{
+    const key=r.url||('__no_sp_'+r.kb);
+    if(!map[key]) map[key]={name:r.name,cat:r.cat,url:r.url,base,kbs:[]};
+    map[key].kbs.push({n:r.kb,id:r.id,erp:r.erp,pv:r.pv});
+  });
+  return Object.values(map).sort((a,b)=>b.kbs.length-a.kbs.length);
+}
+
+// DMX data (previous version)
+const DMX_DATA=[
+  {name:'Camera IP 360° Dahua DH-H3AE',cat:'Camera',url:'camera-giam-sat/camera-ip-360-do-3mp-dahua-dh-h3ae',base:BASE_DMX,kbs:[
+    {n:'KM chọn - 1 trong nhiều quà',id:'4500006',erp:'',pv:'KM'},
+    {n:'KM giảm giá đích danh (giảm tiền / giảm %)',id:'4555617',erp:'',pv:'KM'},
+    {n:'KM Text',id:'4555616',erp:'',pv:'KM'},
+    {n:'Kịch bản xả kho',id:'4555920',erp:'',pv:'KBĐB'},
+    {n:'KM chọn - giảm tiền hoặc quà',id:'4555637',erp:'',pv:'KM'},
+    {n:'KM tặng quà (1 hoặc nhiều quà ngẫu nhiên)',id:'4500006',erp:'',pv:'KM'},
+    {n:'KM theo hình thức giao - Camera',id:'4555634',erp:'',pv:'KM'},
+  ]},
+  {name:'Nồi chiên Kangaroo KG42AF1',cat:'Gia dụng',url:'gia-dung/noi-chien-khong-dau-kangaroo-kg42af1',base:BASE_DMX,kbs:[
+    {n:'Kịch bản combo (khác NH)',id:'4499918',erp:'',pv:'KBĐB'},
+    {n:'Kịch bản combo (cùng NH)',id:'4499917',erp:'',pv:'KBĐB'},
+    {n:'Online only giá rẻ ràng suất Flashsale',id:'4553229',erp:'',pv:'KBĐB'},
+    {n:'KM combo cùng loại',id:'4499917',erp:'',pv:'KM'},
+    {n:'KM Combo nhà mới',id:null,erp:'',pv:'KM'},
+  ]},
+  {name:'iPad Air M4',cat:'Tablet',url:'may-tinh-bang/ipad-air-m4',base:BASE_DMX,kbs:[
+    {n:'KM theo khu vực (tỉnh)',id:'4500015',erp:'',pv:'KM'},
+    {n:'Loại tùy chọn hiển thị giá gạch',id:'4500014',erp:'',pv:'KM'},
+    {n:'KM tặng quà ngẫu nhiên - hiển thị tên nhóm',id:'4555923',erp:'',pv:'KM'},
+  ]},
+  {name:'Samsung Galaxy S26+',cat:'Điện thoại',url:'dien-thoai/samsung-galaxy-s26-plus-12gb-512gb',base:BASE_DMX,kbs:[
+    {n:'Mua kèm phụ kiện',id:'4499916',erp:'',pv:'KBĐB'},
+    {n:'KM mua kèm đích danh',id:'4499916',erp:'',pv:'KM'},
+    {n:'KM ẩn đích danh',id:'4555619',erp:'',pv:'KM'},
+  ]},
+  {name:'Asus Vivobook E1504FA',cat:'Laptop',url:'laptop/asus-vivobook-go-e1504fa-r5-7520u-bq1160w',base:BASE_DMX,kbs:[
+    {n:'KM tổng tiền - quà tặng',id:'4500010',erp:'',pv:'KM'},
+    {n:'KM Ưu đãi học sinh - sinh viên',id:null,erp:'',pv:'KM'},
+    {n:'KM mua nhiều giảm nhiều',id:null,erp:'',pv:'KM'},
+  ]},
+  {name:'Máy lạnh Comfee 1HP CFS-10VDM',cat:'Máy lạnh',url:'may-lanh/comfee-inverter-1-hp-cfs-10vdm',base:BASE_DMX,kbs:[
+    {n:'KM tổng tiền - giảm giá (SL 2)',id:'4500009',erp:'',pv:'KM'},
+    {n:'KM theo hình thức giao',id:'4555639',erp:'',pv:'KM'},
+  ]},
+  {name:'Máy lọc nước Sanaky SNK-TV2HK40',cat:'Gia dụng',url:'may-loc-nuoc/may-loc-nuoc-ro-nong-nguoi-hydrogen-sanaky-snk-tv2hk40-11-loi',base:BASE_DMX,kbs:[
+    {n:'Mua 2 tính 1',id:'4555576',erp:'',pv:'KM'},
+    {n:'Online tiết kiệm tự động',id:'4553230',erp:'',pv:'KBĐB'},
+  ]},
+  {name:'Nồi cơm Bear RC-4H40A',cat:'Gia dụng',url:'noi-com/noi-com-dien-tu-bear-1-5-lit-rc-4h40a',base:BASE_DMX,kbs:[
+    {n:'KM tặng quà hết quà nợ',id:'4500013',erp:'',pv:'KM'},
+    {n:'KM tặng quà hết quà hoàn tiền',id:'4500012',erp:'',pv:'KM'},
+  ]},
+  {name:'Nồi cơm Tefal RK5352Y0',cat:'Gia dụng',url:'gia-dung/noi-com-dien-tu-tefal-072-lit-rk5352y0',base:BASE_DMX,kbs:[{n:'Kịch bản combo (khác NH)',id:'4499918',erp:'',pv:'KBĐB'},{n:'Online only giá sốc (OLTK cho SP OLOL)',id:'4553230',erp:'',pv:'KBĐB'}]},
+  {name:'Quạt Daikiosan DQ103',cat:'Gia dụng',url:'quat/quat-dung-daikiosan-7-canh-dq103-80w',base:BASE_DMX,kbs:[{n:'Online only giá sốc (OLTK cho SP OLOL)',id:'4553230',erp:'',pv:'KBĐB'},{n:'Online Only',id:'4555633',erp:'',pv:'KBĐB'}]},
+  {name:'DV vệ sinh máy hút mùi',cat:'Dịch vụ',url:'tho-dien-may-xanh/dich-vu-ve-sinh-may-hut-mui',base:BASE_DMX,kbs:[{n:'Dịch vụ vệ sinh máy lạnh',id:'4499923',erp:'',pv:'KM'}]},
+  {name:'Miếng dán lưng iPhone 13',cat:'Phụ kiện',url:'mieng-dan-man-hinh/mieng-dan-lung-iphone-13',base:BASE_DMX,kbs:[{n:'Chỉ bán tại siêu thị - KM giảm giá',id:'4499922',erp:'',pv:'KM'}]},
+  {name:'Quạt điều hòa Kangaroo KG50F88',cat:'Gia dụng',url:'quat-dieu-hoa/kangaroo-kg50f88',base:BASE_DMX,kbs:[{n:'Online giá rẻ tự động',id:'4553229',erp:'',pv:'KBĐB'}]},
+  {name:'Máy lạnh Panasonic 2.5HP XU24BKH-8',cat:'Máy lạnh',url:'may-lanh-test/panasonic-inverter-2-5-hp-cu-cs-xu24bkh-8',base:BASE_DMX,kbs:[{n:'Online giá rẻ ràng suất Flashsale',id:'4553229',erp:'',pv:'KBĐB'}]},
+  {name:'Máy lọc nước Sanaky SNK-TV3HK88',cat:'Gia dụng',url:'may-loc-nuoc/may-loc-nuoc-ro-nong-nguoi-lanh-hydrogen-sanaky-snk-tv3hk88-11-loi',base:BASE_DMX,kbs:[{n:'Online tiết kiệm ràng suất Flashsale',id:'4553230',erp:'',pv:'KBĐB'}]},
+  {name:'Bàn ủi Philips DST8041',cat:'Gia dụng',url:'gia-dung/ban-ui-hoi-nuoc-philips-dst8041-80',base:BASE_DMX,kbs:[{n:'Online only giá rẻ tự động',id:'4553229',erp:'',pv:'KBĐB'}]},
+  {name:'Máy lạnh Panasonic 1HP XU9BKH-8',cat:'Máy lạnh',url:'may-lanh-test/panasonic-inverter-1-hp-cu-cs-xu9bkh-8',base:BASE_DMX,kbs:[{n:'KB giá rẻ ràng suất KM ẩn (CTKM ẩn 1đ)',id:'4555632',erp:'',pv:'KBĐB'}]},
+  {name:'Máy lạnh Panasonic 1.5HP PU12CKH-8D',cat:'Máy lạnh',url:'may-lanh/panasonic-inverter-15-hp-u-cs-pu12ckh-8d',base:BASE_DMX,kbs:[{n:'Đa giá BIG CE (BH Tận Tâm)',id:null,erp:'',pv:'KBĐB'}]},
+  {name:'Bình giữ nhiệt Lock&Lock LHC4267',cat:'Gia dụng',url:'binh-ly-giu-nhiet/binh-giu-nhiet-inox-490ml-belt-bottle-lock-lock-lhc4267pik',base:BASE_DMX,kbs:[{n:'DropShip',id:'4555635',erp:'',pv:'KBĐB'}]},
+  {name:'Máy khoan pin Finder FD10041621',cat:'Gia dụng',url:'may-khoan/may-khoan-pin-finder-fd10041621-16-8v',base:BASE_DMX,kbs:[{n:'Crossborder',id:'4555636',erp:'',pv:'KBĐB'}]},
+  {name:'Phần mềm Vieon VIP 12 tháng',cat:'Phần mềm',url:'phan-mem/vieon-vip-12-thang-chinh-hang',base:BASE_DMX,kbs:[{n:'Phần mềm - khai báo KM giảm giá',id:'4555641',erp:'',pv:'KM'}]},
+  {name:'Máy rửa chén Bosch SMS4EVI04E',cat:'Gia dụng',url:'may-rua-chen/may-rua-chen-doc-lap-bosch-sms4evi04e',base:BASE_DMX,kbs:[{n:'Online Ontop',id:'4555638',erp:'',pv:'KBĐB'}]},
+  {name:'iPhone 15',cat:'Điện thoại',url:'dien-thoai/iphone-15',base:BASE_DMX,kbs:[{n:'Shop chiến (Khai báo giá chiến)',id:null,erp:'',pv:'KBĐB'}]},
+  {name:'iPhone 17 512GB',cat:'Điện thoại',url:'dien-thoai/iphone-17-512gb',base:BASE_DMX,kbs:[{n:'KM loại trừ gói trả góp',id:'4555922',erp:'',pv:'KM'}]},
+];
+
+const TGDD_DATA = groupBySP(TGDD_RAW, BASE_TGDD);
+
+let site='tgdd', filter='all', openSet=new Set();
+
+function setSite(s,btn){
+  site=s;
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelector('.hs').textContent = s==='tgdd'?'TGDĐ Core Mới — Staging':'ĐMX Core Mới — Staging';
+  openSet.clear();
+  render();
+}
 
 function setF(f,btn){
   filter=f;
@@ -194,13 +243,18 @@ function setF(f,btn){
 
 function bc(n){return n>=3?'b-hi':n===2?'b-mid':'b-lo'}
 
+function pvBadge(pv){
+  if(pv==='KBĐB') return '<span style="font-size:10px;padding:1px 6px;border-radius:10px;background:#EEEDFE;color:#3C3489">KBĐB</span>';
+  return '<span style="font-size:10px;padding:1px 6px;border-radius:10px;background:#E1F5EE;color:#085041">KM</span>';
+}
+
 function render(){
   const q=document.getElementById('q').value.toLowerCase();
-  const filtered=DATA.filter(sp=>{
+  const rawData = site==='tgdd'?TGDD_DATA:DMX_DATA;
+  const filtered=rawData.filter(sp=>{
     const mf=filter==='all'
-      ||(filter==='many'&&sp.kbs.length>=3)
-      ||(filter==='two'&&sp.kbs.length===2)
-      ||(filter==='one'&&sp.kbs.length===1)
+      ||(filter==='kb'&&sp.kbs.some(k=>k.pv==='KBĐB'))
+      ||(filter==='km'&&sp.kbs.some(k=>k.pv==='KM'))
       ||(filter==='noid'&&sp.kbs.some(k=>!k.id));
     const mq=!q||sp.name.toLowerCase().includes(q)||sp.kbs.some(k=>k.n.toLowerCase().includes(q));
     return mf&&mq;
@@ -208,9 +262,11 @@ function render(){
   document.getElementById('cnt-sp').textContent=filtered.length;
   document.getElementById('cnt-kb').textContent=filtered.reduce((a,s)=>a+s.kbs.length,0);
   const list=document.getElementById('list');
-  if(!filtered.length){list.innerHTML='<div class="empty"><i class="ti ti-search-off" style="font-size:22px;display:block;margin-bottom:6px"></i>Không tìm thấy SP phù hợp</div>';return;}
+  if(!filtered.length){list.innerHTML='<div class="empty"><i class="ti ti-search-off" style="font-size:22px;display:block;margin-bottom:6px"></i>Không tìm thấy</div>';return;}
   list.innerHTML=filtered.map((sp,si)=>{
     const open=openSet.has(si);
+    const base=sp.base||(site==='tgdd'?BASE_TGDD:BASE_DMX);
+    const hasUrl=sp.url&&sp.url.length>0;
     return `<div class="card">
       <div class="ch" onclick="tog(${si})">
         <div class="badge ${bc(sp.kbs.length)}">${sp.kbs.length}</div>
@@ -219,19 +275,26 @@ function render(){
       </div>
       <div class="cb ${open?'open':''}">
         <div class="url-row">
-          <div class="url-txt">staging.dienmayxanh.com/${sp.url}</div>
-          <button class="icon-btn" title="Sao chép link" onclick="cp(event,'https://staging.dienmayxanh.com/${sp.url}')"><i class="ti ti-copy"></i></button>
-          <a class="icon-btn" href="https://staging.dienmayxanh.com/${sp.url}" target="_blank" title="Mở staging"><i class="ti ti-external-link"></i></a>
+          ${hasUrl
+            ?`<div class="url-txt">${base}${sp.url}</div>
+               <button class="ibt" title="Sao chép" onclick="cp(event,'${base}${sp.url}')"><i class="ti ti-copy"></i></button>
+               <a class="ibt" href="${base}${sp.url}" target="_blank" title="Mở staging"><i class="ti ti-external-link"></i></a>`
+            :`<div class="url-txt" style="font-style:italic">${sp.name}</div>`
+          }
         </div>
-        <div class="kb-list">${sp.kbs.map((kb,i)=>`
+        <div style="display:flex;flex-direction:column">
+        ${sp.kbs.map((kb,i)=>`
           <div class="kbi">
             <div class="dot" style="background:${DOTS[i%DOTS.length]}"></div>
             <div class="kb-right">
-              <div class="kb-name">${kb.n}</div>
-              <div class="km-row">${kb.id
-                ?`<span class="km-id">ID ${kb.id}</span><a class="km-link" href="${PE_URL}${kb.id}" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i> PE</a>`
-                :`<span class="km-none">Chưa có ID KM</span>`
-              }</div>
+              <div class="kb-name">${pvBadge(kb.pv)} ${kb.n}</div>
+              <div class="km-row">
+                ${kb.id&&kb.id!=='null'&&kb.id!==''
+                  ?`<span class="km-id">ID ${kb.id}</span><a class="km-link" href="${PE}${kb.id}" target="_blank"><i class="ti ti-external-link" style="font-size:11px"></i> PE</a>`
+                  :`<span class="km-none">Chưa có ID KM</span>`
+                }
+                ${kb.erp&&kb.erp!==''&&kb.erp!=='0000000000000'?`<span class="erp">· ERP: ${kb.erp}</span>`:''}
+              </div>
             </div>
           </div>`).join('')}
         </div>
@@ -241,7 +304,6 @@ function render(){
 }
 
 function tog(idx){if(openSet.has(idx))openSet.delete(idx);else openSet.add(idx);render();}
-
 function cp(e,url){
   e.stopPropagation();
   navigator.clipboard.writeText(url).then(()=>{
@@ -249,7 +311,6 @@ function cp(e,url){
     setTimeout(()=>{b.innerHTML='<i class="ti ti-copy"></i>';},1500);
   });
 }
-
 render();
 </script>
 </body>
